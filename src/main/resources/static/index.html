@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试</title>
+</head>
+<body>
+学生信息登记
+<form>
+    姓名<input type="text" id="username"><br>
+    住址<input type="text" id="address"><br>
+    学校<input type="text" id="school"><br>
+    <br>
+    <input type="button" id="btn-post" value="确定"></button>
+</form>
+
+<script src="js/jquery-3.3.1.js"></script>
+<script>
+    $(function () {
+        $(document).ready(function () {
+            $("#btn-post").click(function () {
+                var stuInfo = {
+                    name: $("#username").val(),
+                    address: $("#address").val(),
+                    school: $("#school").val()
+                }
+                var json = JSON.stringify(stuInfo);
+                $.post({
+                    url: "http://localhost:8080/addStudentInfo",
+                    headers: {
+                        "content-Type": "application/json;charset=utf-8"
+                    }
+                }, json, function (data) {
+                    alert(data.message);
+                });
+            });
+        });
+    });
+</script>
+</body>
+</html>
